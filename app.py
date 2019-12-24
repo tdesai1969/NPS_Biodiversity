@@ -1,11 +1,13 @@
 #  import dependancies
 
 from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import datetime;
+
 
 # Database Setup
 
@@ -25,6 +27,8 @@ Species = Base.classes.species
 #  Flask Setup
 #################################################
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def welcome():
@@ -36,19 +40,21 @@ def keep_alive():
 
 # Get Species by Park Code
 @app.route("/api/park/<park_code>/species")
+@cross_origin()
 def species_by_park(park_code):
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    results = session.query(Species.speciesID, Species.category,Species.species_order, Species.common_names).filter(Species.park_code == park_code).all()
+    results = session.query(Species.speciesID, Species.scientific_name, Species.family, Species.species_order,Species.category).filter(Species.park_code == park_code).all()
     session.close()
     spieces_totals = []
     for result in results:
         row = {}
         row['speciesID'] = result[0]
-        row["category"] = result[1]
-        row['speciesOrder'] = result[2]
-        row["commonNames"] = result[3]
+        row["scientificName"] = result[1]
+        row["family"] = result[2]
+        row['speciesOrder'] = result[3]
+        row["category"] = result[4]
         spieces_totals.append(row)
 
     return jsonify(spieces_totals)
