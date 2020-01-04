@@ -40,26 +40,29 @@
 
   <body>
     <!-- The div that holds our map -->
-    <div id="map-id"></div>
 
-    <div class="container container-fluid">
-      <div class="row">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Family</th>
-              <th scope="col">Category</th>
-              <th scope="col">Species Order</th>
-            </tr>
-          </thead>
-          <tbody id="species-rows">
-          </tbody>
-        </table>
+    <div id="growContainer">
+      <div class="grow" id="map-id"></div>
+      <div class="grow" >
+          <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Family</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Species Order</th>
+                </tr>
+              </thead>
+              <tbody id="species-rows">
+              </tbody>
+            </table>
+        </div>
+    
       </div>
-    </div>
-
+      </div>
+ 
     <!-- Species Table-->
 
     <!-- D3 -->
@@ -99,6 +102,7 @@
     <script type="text/javascript" src="static/js/config.js"></script>
 
     <!-- Our JavaScript -->
+    <script type="text/javascript" src="static/js/geojson.min.js"></script>
     <script type="text/javascript" src="static/js/app.js"></script>
   </body>
 </html>
