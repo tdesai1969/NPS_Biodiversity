@@ -40,10 +40,12 @@
 
   <body>
     <!-- The div that holds our map -->
+    <div class="container-fluid">
+      <div class="row fill-height">
+        <div class="col-md-8" id="map-id">
 
-    <div id="growContainer">
-      <div class="grow" id="map-id"></div>
-      <div class="grow" >
+        </div>
+        <div class="col-md-4">
           <div class="row">
             <table class="table">
               <thead>
@@ -56,12 +58,14 @@
                 </tr>
               </thead>
               <tbody id="species-rows">
+                <!-- <tr> No data available</tr> -->
               </tbody>
             </table>
+  
+          </div>
         </div>
-    
       </div>
-      </div>
+    </div>
  
     <!-- Species Table-->
 

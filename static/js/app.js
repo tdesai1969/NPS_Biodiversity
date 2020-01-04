@@ -24,7 +24,7 @@ async function loadParkGeoJson() {
 function generateParkMap(parks) {
     var parkMap = L.map("map-id", {
         center: [37.0902, -95.7129],
-        zoom: 4,
+        zoom: 3,
       });
 
       L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
