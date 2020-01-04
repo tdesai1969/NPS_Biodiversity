@@ -32,7 +32,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def welcome():
-    return "Hello World, From Team TAMA!"
+    return render_template("index.html")
 
 @app.route("/keepalive")
 def keep_alive():
