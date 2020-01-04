@@ -1,6 +1,6 @@
 #  import dependancies
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS, cross_origin
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
