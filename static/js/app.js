@@ -12,7 +12,7 @@ $(async function () {
 });
 
 async function loadParkGeoJson() {
-    var parkUrl = `${BaseApiUrl}/park`;
+    var parkUrl = `api/park`;
     var parks = await $.ajax({
         url: parkUrl
     });
@@ -56,7 +56,7 @@ function createPopup(details) {
 }
 
 async function loadSpecies(park_code) {
-    var speciesUrl = `${BaseApiUrl}/park/${park_code}/species`;
+    var speciesUrl = `api/park/${park_code}/species`;
     var data = await $.ajax({
         url: speciesUrl
     });
