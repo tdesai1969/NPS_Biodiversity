@@ -1,16 +1,14 @@
 'use strict';
 
 $(async function () {
-    //Pass park_code into this function from leaflet, when ready.
+    var parks = await loadParkGeoJson();
+    generateParkMap(parks);
 
-    var geojsonParks = await loadParkGeoJson();
-    generateParkMap(geojsonParks);
-});
+    $(document).on('click', '.species-href', async (e) => {
+        var parkCode = $(e.target).data('parkcode');
+        await loadSpecies(parkCode);
+    });
 
-
-$(document).on('click', '.species-href' , async (e) => {
-    var parkCode = $(e.target).data('parkcode');      
-    await loadSpecies(parkCode);
 });
 
 async function loadParkGeoJson() {
@@ -18,31 +16,33 @@ async function loadParkGeoJson() {
     var parks = await $.ajax({
         url: parkUrl
     });
-    return GeoJSON.parse(parks, {Point: ['latitude', 'longitude']});
+    return GeoJSON.parse(parks, {
+        Point: ['latitude', 'longitude']
+    });
 }
 
 function generateParkMap(parks) {
     var parkMap = L.map("map-id", {
         center: [37.0902, -95.7129],
         zoom: 3,
-      });
+    });
 
-      L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox.outdoors',
         accessToken: API_KEY
     }).addTo(parkMap);
-    
+
     L.geoJson(parks, {
-        pointToLayer: function (feature, latLong) {
-          return L.marker(latLong);
-        },
-        onEachFeature: function (feature, layer) {
-          layer.bindPopup(createPopup(feature.properties));
-        }
-      })
-      .addTo(parkMap);
+            pointToLayer: function (feature, latLong) {
+                return L.marker(latLong);
+            },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup(createPopup(feature.properties));
+            }
+        })
+        .addTo(parkMap);
 }
 
 function createPopup(details) {
@@ -53,11 +53,13 @@ function createPopup(details) {
     <b>visitors: </b>${details.visitors.toFixed(0)}<br>
     <a class="species-href" href="#" data-parkcode="${details.park_code}">Species information</a>
     `;
-  }
+}
 
 async function loadSpecies(park_code) {
     var speciesUrl = `${BaseApiUrl}/park/${park_code}/species`;
-    var data = await $.ajax({url: speciesUrl});
+    var data = await $.ajax({
+        url: speciesUrl
+    });
 
     // Table select
     var table_body = $('#species-rows');
