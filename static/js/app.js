@@ -70,7 +70,7 @@ async function loadSpecies(park_code) {
         var row =
             `
             <tr>
-                <th scope="row">${element.speciesID}</th>
+                <th scope="row">${element.common_names}</th>
                 <td>${element.scientificName}</td>
                 <td>${element.family}</td>
                 <td>${element.category}</td>

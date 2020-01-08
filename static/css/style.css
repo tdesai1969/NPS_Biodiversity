@@ -10,3 +10,7 @@ html, body {
     height:auto !important; /* cross-browser */
     height: 100%; /* cross-browser */
 }
+.header {
+    color:rgb(7, 76, 206);
+    text-align:center;
+}
